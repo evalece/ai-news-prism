@@ -1,19 +1,25 @@
-export default function CategoryFilter({
-  categories,
-  selectedCategory,
-  onCategoryChange
+
+export default function SourceFilter({
+  sources,
+  selectedSource,
+  onSourceChange
 }) {
   return (
-    <div>
-      <label htmlFor="category">Category: </label>
+    <div className="filter">
+      <label htmlFor="source-filter">
+        News Source
+      </label>
+
       <select
-        id="category"
-        value={selectedCategory}
-        onChange={e => onCategoryChange(e.target.value)}
+        id="source-filter"
+        value={selectedSource}
+        onChange={(e) => onSourceChange(e.target.value)}
       >
-        {categories.map(category => (
-          <option key={category} value={category}>
-            {category}
+        <option value="all">All Sources</option>
+
+        {sources.map(source => (
+          <option key={source} value={source}>
+            {source}
           </option>
         ))}
       </select>

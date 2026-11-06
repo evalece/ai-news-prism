@@ -1,15 +1,15 @@
-export default function NewsFeed({ articles }) {
-  return (
-    <div>
-      <p>Showing {articles.length} articles</p>
 
-      {articles.map(article => (
+export default function NewsFeed({ articles }) {
+  if (articles.length === 0) {
+    return <p>No articles found.</p>;
+  }
+
+  return (
+    <div className="news-feed">
+      {articles.map((article, index) => (
         <article
-          key={article.url}
-          style={{
-            borderBottom: "1px solid #ddd",
-            padding: "16px 0"
-          }}
+          key={article.url || index}
+          className="news-card"
         >
           <h3>
             <a
@@ -21,10 +21,30 @@ export default function NewsFeed({ articles }) {
             </a>
           </h3>
 
-          <small>
-            {article.source} ·{" "}
-            {new Date(article.publishedAt).toLocaleDateString()}
-          </small>
+          <div className="news-meta">
+            <span>{article.source}</span>
+
+            {article.publishedAt && (
+              <span>
+                {new Date(
+                  article.publishedAt
+                ).toLocaleString()}
+              </span>
+            )}
+          </div>
+
+          {article.categories?.length > 0 && (
+            <div className="news-categories">
+              {article.categories.map(category => (
+                <span
+                  key={category}
+                  className="category-tag"
+                >
+                  {category}
+                </span>
+              ))}
+            </div>
+          )}
         </article>
       ))}
     </div>
